@@ -22,7 +22,11 @@ export function CreateUserPage() {
     <div>
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Create New User</h1>
       <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-        <UserForm onSubmit={handleSubmit} isSubmitting={createUser.isPending} submitLabel="Create User" />
+        <UserForm
+          onSubmit={handleSubmit}
+          isSubmitting={createUser.isPending}
+          submitLabel="Create User"
+        />
       </div>
     </div>
   );

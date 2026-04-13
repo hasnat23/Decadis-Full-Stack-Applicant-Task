@@ -15,12 +15,16 @@ function getService(): UserService {
 }
 
 // POST /action — execute an action for a user
-actionRouter.post('/', validate(executeActionSchema), (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const service = getService();
-    const result = service.executeAction(req.body.userId, req.body.action);
-    res.status(200).json(result);
-  } catch (err) {
-    next(err);
-  }
-});
+actionRouter.post(
+  '/',
+  validate(executeActionSchema),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const service = getService();
+      const result = service.executeAction(req.body.userId, req.body.action);
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
+  },
+);

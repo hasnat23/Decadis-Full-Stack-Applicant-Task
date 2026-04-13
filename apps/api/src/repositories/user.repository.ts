@@ -54,7 +54,15 @@ export class UserRepository {
         `INSERT INTO users (id, first_name, last_name, email, actions, created_at, updated_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       )
-      .run(id, input.firstName, input.lastName, input.email, JSON.stringify(input.actions), now, now);
+      .run(
+        id,
+        input.firstName,
+        input.lastName,
+        input.email,
+        JSON.stringify(input.actions),
+        now,
+        now,
+      );
 
     return this.findById(id)!;
   }

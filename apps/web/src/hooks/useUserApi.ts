@@ -1,6 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api';
-import type { User, CreateUserInput, UpdateUserInput, ExecuteActionInput, ActionResponse } from '@app/shared';
+import type {
+  User,
+  CreateUserInput,
+  UpdateUserInput,
+  ExecuteActionInput,
+  ActionResponse,
+} from '@app/shared';
 
 const USERS_KEY = ['users'] as const;
 
@@ -50,8 +56,7 @@ export function useUpdateUser(id: string) {
 export function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) =>
-      api.request<void>(`/user/${id}`, { method: 'DELETE' }),
+    mutationFn: (id: string) => api.request<void>(`/user/${id}`, { method: 'DELETE' }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: USERS_KEY });
     },

@@ -30,9 +30,7 @@ describe('App routing', () => {
     render(
       <MemoryRouter initialEntries={['/users']}>
         <QueryClientProvider
-          client={
-            new QueryClient({ defaultOptions: { queries: { retry: false } } })
-          }
+          client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
         >
           <App />
         </QueryClientProvider>
@@ -48,9 +46,7 @@ describe('App routing', () => {
     render(
       <MemoryRouter initialEntries={['/users/new']}>
         <QueryClientProvider
-          client={
-            new QueryClient({ defaultOptions: { queries: { retry: false } } })
-          }
+          client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
         >
           <App />
         </QueryClientProvider>
@@ -64,9 +60,7 @@ describe('App routing', () => {
     render(
       <MemoryRouter initialEntries={['/something-random']}>
         <QueryClientProvider
-          client={
-            new QueryClient({ defaultOptions: { queries: { retry: false } } })
-          }
+          client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
         >
           <App />
         </QueryClientProvider>

@@ -94,9 +94,12 @@ describe('CreateUserPage', () => {
     await user.click(screen.getByRole('button', { name: 'Create User' }));
 
     await waitFor(() => {
-      expect(mockRequest).toHaveBeenCalledWith('/user', expect.objectContaining({
-        method: 'POST',
-      }));
+      expect(mockRequest).toHaveBeenCalledWith(
+        '/user',
+        expect.objectContaining({
+          method: 'POST',
+        }),
+      );
     });
   });
 });

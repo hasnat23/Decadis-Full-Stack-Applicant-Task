@@ -153,9 +153,7 @@ describe('GET /user/:id', () => {
 describe('PUT /user/:id', () => {
   it('should update a user', async () => {
     const created = await request(app).post('/user').send(validUser);
-    const res = await request(app)
-      .put(`/user/${created.body.id}`)
-      .send({ firstName: 'Johnny' });
+    const res = await request(app).put(`/user/${created.body.id}`).send({ firstName: 'Johnny' });
     expect(res.status).toBe(200);
     expect(res.body.firstName).toBe('Johnny');
     expect(res.body.lastName).toBe('Doe');

@@ -36,7 +36,10 @@ export function UsersListPage() {
       {users?.length === 0 ? (
         <div className="rounded-lg border-2 border-dashed border-gray-300 py-12 text-center">
           <p className="text-gray-500">No users yet.</p>
-          <Link to="/users/new" className="mt-2 inline-block text-sm text-indigo-600 hover:underline">
+          <Link
+            to="/users/new"
+            className="mt-2 inline-block text-sm text-indigo-600 hover:underline"
+          >
             Create the first user →
           </Link>
         </div>
@@ -65,7 +68,9 @@ export function UsersListPage() {
                   <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
                     {user.firstName} {user.lastName}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{user.email}</td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                    {user.email}
+                  </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
                       {user.actions.length > 0 ? (

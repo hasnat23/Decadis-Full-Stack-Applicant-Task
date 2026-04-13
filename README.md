@@ -6,16 +6,16 @@ A full-stack **User Management** application built as a production-quality monor
 
 ## 🏗️ Stack
 
-| Layer            | Technology                                                       |
-| ---------------- | ---------------------------------------------------------------- |
-| **Monorepo**     | npm workspaces                                                   |
-| **Backend**      | Node.js, Express 5, TypeScript, Zod, better-sqlite3              |
-| **Frontend**     | React 19, Vite, TypeScript, Tailwind CSS                         |
-| **Data Fetching**| TanStack Query                                                   |
-| **Routing**      | React Router v7                                                  |
-| **Forms**        | React Hook Form + Zod resolver                                   |
-| **Testing**      | Vitest, Supertest, Testing Library, Playwright                   |
-| **Tooling**      | ESLint, Prettier                                                 |
+| Layer             | Technology                                          |
+| ----------------- | --------------------------------------------------- |
+| **Monorepo**      | npm workspaces                                      |
+| **Backend**       | Node.js, Express 5, TypeScript, Zod, better-sqlite3 |
+| **Frontend**      | React 19, Vite, TypeScript, Tailwind CSS            |
+| **Data Fetching** | TanStack Query                                      |
+| **Routing**       | React Router v7                                     |
+| **Forms**         | React Hook Form + Zod resolver                      |
+| **Testing**       | Vitest, Supertest, Testing Library, Playwright      |
+| **Tooling**       | ESLint, Prettier                                    |
 
 ---
 
@@ -78,6 +78,7 @@ The API follows a **repository → service → controller** architecture:
 ### Shared Package (packages/shared)
 
 Contains Zod schemas and TypeScript types used by both apps:
+
 - `createUserSchema`, `updateUserSchema`, `executeActionSchema` for validation
 - `User`, `Action`, `ApiError`, `ActionResponse` types
 - `AVAILABLE_ACTIONS` constant
@@ -126,18 +127,18 @@ Visit **http://localhost:5173** in your browser.
 
 ### Backend (`apps/api/.env`)
 
-| Variable        | Default                | Description              |
-| --------------- | ---------------------- | ------------------------ |
-| `PORT`          | `3001`                 | API server port          |
-| `DATABASE_PATH` | `./data/database.db`   | SQLite database path     |
-| `CORS_ORIGIN`   | `http://localhost:5173` | Allowed CORS origin     |
-| `NODE_ENV`      | `development`          | Environment mode         |
+| Variable        | Default                 | Description          |
+| --------------- | ----------------------- | -------------------- |
+| `PORT`          | `3001`                  | API server port      |
+| `DATABASE_PATH` | `./data/database.db`    | SQLite database path |
+| `CORS_ORIGIN`   | `http://localhost:5173` | Allowed CORS origin  |
+| `NODE_ENV`      | `development`           | Environment mode     |
 
 ### Frontend (`apps/web/.env`)
 
-| Variable       | Default                 | Description    |
-| -------------- | ----------------------- | -------------- |
-| `VITE_API_URL` | `http://localhost:3001`  | Backend URL    |
+| Variable       | Default                 | Description |
+| -------------- | ----------------------- | ----------- |
+| `VITE_API_URL` | `http://localhost:3001` | Backend URL |
 
 ---
 
@@ -205,6 +206,7 @@ DELETE /user/:id      → Delete a user (204 | 404)
 ```
 
 **Create/Update body:**
+
 ```json
 {
   "firstName": "John",
@@ -221,6 +223,7 @@ POST /action → Execute an action (200 | 401 | 404)
 ```
 
 **Request body:**
+
 ```json
 {
   "userId": "uuid-here",
@@ -233,6 +236,7 @@ POST /action → Execute an action (200 | 401 | 404)
 ### Error Responses
 
 All errors follow this format:
+
 ```json
 {
   "error": "Description of what went wrong",

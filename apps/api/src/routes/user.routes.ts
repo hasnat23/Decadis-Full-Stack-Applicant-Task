@@ -15,15 +15,19 @@ function getService(): UserService {
 }
 
 // POST /user — create a user
-userRouter.post('/', validate(createUserSchema), (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const service = getService();
-    const user = service.createUser(req.body);
-    res.status(201).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
+userRouter.post(
+  '/',
+  validate(createUserSchema),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const service = getService();
+      const user = service.createUser(req.body);
+      res.status(201).json(user);
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 // GET /user — fetch all users
 userRouter.get('/', (_req: Request, res: Response) => {
@@ -49,16 +53,20 @@ userRouter.get('/:id', (req: Request, res: Response, next: NextFunction) => {
 });
 
 // PUT /user/:id — update a user
-userRouter.put('/:id', validate(updateUserSchema), (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const service = getService();
-    const id = req.params.id as string;
-    const user = service.updateUser(id, req.body);
-    res.json(user);
-  } catch (err) {
-    next(err);
-  }
-});
+userRouter.put(
+  '/:id',
+  validate(updateUserSchema),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const service = getService();
+      const id = req.params.id as string;
+      const user = service.updateUser(id, req.body);
+      res.json(user);
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 // DELETE /user/:id — delete a user
 userRouter.delete('/:id', (req: Request, res: Response, next: NextFunction) => {

@@ -1,19 +1,10 @@
 import type { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
-import {
-  NotFoundError,
-  ConflictError,
-  UnauthorizedActionError,
-} from '../services/user.service.js';
+import { NotFoundError, ConflictError, UnauthorizedActionError } from '../services/user.service.js';
 import type { ApiError } from '@app/shared';
 
 /** Global error handler middleware */
-export function errorHandler(
-  err: Error,
-  _req: Request,
-  res: Response,
-  _next: NextFunction,
-): void {
+export function errorHandler(err: Error, _req: Request, res: Response, _next: NextFunction): void {
   // Zod validation errors
   if (err instanceof ZodError) {
     const response: ApiError = {
