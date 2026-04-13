@@ -16,7 +16,7 @@ test.describe('User Management E2E', () => {
 
     // Navigate to users list
     await page.goto('/users');
-    await expect(page.getByText(/User Management/)).toBeVisible();
+    await expect(page.getByRole('link', { name: /UserHub/ })).toBeVisible();
 
     // Should show empty state initially or existing users
     // Navigate to create user
@@ -37,15 +37,15 @@ test.describe('User Management E2E', () => {
     // Should navigate to user detail
     await page.waitForURL(/\/users\/.+/);
     await expect(page.getByRole('heading', { name: 'Alice Wonderland' })).toBeVisible();
-    await expect(page.getByText('create-item').first()).toBeVisible();
-    await expect(page.getByText('view-item').first()).toBeVisible();
+    await expect(page.getByText('Create Item').first()).toBeVisible();
+    await expect(page.getByText('View Item').first()).toBeVisible();
 
     // Run an allowed action
-    await page.click('button:has-text("create-item")');
+    await page.click('button:has-text("Create Item")');
     await expect(page.getByText(/executed successfully/)).toBeVisible();
 
     // Run a disallowed action
-    await page.click('button:has-text("delete-item")');
+    await page.click('button:has-text("Delete Item")');
     await expect(page.getByText(/not allowed/)).toBeVisible();
 
     // Navigate to edit
@@ -69,7 +69,7 @@ test.describe('User Management E2E', () => {
 
     // Delete the user
     page.once('dialog', (dialog) => dialog.accept());
-    // Click the Delete button in the table row for Alice
+    // Click the Delete button in the table row for Alice (desktop table)
     const row = page.locator('tr', { hasText: 'Alice Updated' }).first();
     await row.getByText('Delete').click();
 

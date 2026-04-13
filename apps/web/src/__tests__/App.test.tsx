@@ -37,7 +37,7 @@ describe('App routing', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/User Management/)).toBeInTheDocument();
+    expect(screen.getByText(/UserHub/)).toBeInTheDocument();
     expect(screen.getByText('All Users')).toBeInTheDocument();
     expect(screen.getByText('+ New User')).toBeInTheDocument();
   });

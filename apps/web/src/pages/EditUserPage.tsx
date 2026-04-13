@@ -28,15 +28,31 @@ export function EditUserPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">
+      {/* Breadcrumb */}
+      <nav className="mb-6 flex items-center gap-1.5 text-sm text-gray-500">
+        <Link to="/users" className="hover:text-indigo-600">
+          Users
+        </Link>
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+        <Link to={`/users/${id}`} className="hover:text-indigo-600">
+          {user.firstName} {user.lastName}
+        </Link>
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+        <span className="font-medium text-gray-900">Edit</span>
+      </nav>
+
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
           Edit {user.firstName} {user.lastName}
         </h1>
-        <Link to={`/users/${id}`} className="text-sm text-indigo-600 hover:underline">
-          ← Back to detail
-        </Link>
+        <p className="mt-1 text-sm text-gray-500">Update the user details below.</p>
       </div>
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+
+      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         <UserForm
           defaultValues={{
             firstName: user.firstName,
