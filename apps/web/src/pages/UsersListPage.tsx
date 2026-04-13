@@ -44,7 +44,7 @@ export function UsersListPage() {
           </Link>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -96,7 +96,8 @@ export function UsersListPage() {
                       </Link>
                       <button
                         onClick={() => handleDelete(user.id, `${user.firstName} ${user.lastName}`)}
-                        className="rounded bg-red-100 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-200"
+                        disabled={deleteUser.isPending}
+                        className="rounded bg-red-100 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-200 disabled:opacity-50"
                       >
                         Delete
                       </button>

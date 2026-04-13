@@ -32,10 +32,10 @@ export function errorHandler(err: Error, _req: Request, res: Response, _next: Ne
     return;
   }
 
-  // Unauthorized action
+  // Forbidden action (user is identified but not authorized)
   if (err instanceof UnauthorizedActionError) {
     const response: ApiError = { error: err.message };
-    res.status(401).json(response);
+    res.status(403).json(response);
     return;
   }
 

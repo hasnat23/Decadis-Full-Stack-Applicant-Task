@@ -9,9 +9,7 @@ import { UserRepository } from '../repositories/user.repository.js';
 export const userRouter = Router();
 
 function getService(): UserService {
-  const db = getDatabase();
-  const repo = new UserRepository(db);
-  return new UserService(repo);
+  return new UserService(new UserRepository(getDatabase()));
 }
 
 // POST /user — create a user
@@ -30,10 +28,14 @@ userRouter.post(
 );
 
 // GET /user — fetch all users
-userRouter.get('/', (_req: Request, res: Response) => {
-  const service = getService();
-  const users = service.getAllUsers();
-  res.json(users);
+userRouter.get('/', (_req: Request, res: Response, next: NextFunction) => {
+  try {
+    const service = getService();
+    const users = service.getAllUsers();
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
 });
 
 // GET /user/:id — fetch one user

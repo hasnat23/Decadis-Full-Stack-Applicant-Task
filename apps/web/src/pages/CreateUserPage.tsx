@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useCreateUser } from '../hooks/useUserApi';
 import { UserForm } from '../components/UserForm';
 import toast from 'react-hot-toast';
@@ -20,7 +20,12 @@ export function CreateUserPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Create New User</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900">Create New User</h1>
+        <Link to="/users" className="text-sm text-indigo-600 hover:underline">
+          ← Cancel
+        </Link>
+      </div>
       <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
         <UserForm
           onSubmit={handleSubmit}

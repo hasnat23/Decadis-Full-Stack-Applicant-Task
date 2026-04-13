@@ -4,7 +4,7 @@ import { UserForm } from '../components/UserForm';
 import { Spinner } from '../components/Spinner';
 import { ErrorAlert } from '../components/ErrorAlert';
 import toast from 'react-hot-toast';
-import type { CreateUserInput } from '@app/shared';
+import type { UpdateUserInput } from '@app/shared';
 
 export function EditUserPage() {
   const { id } = useParams<{ id: string }>();
@@ -12,7 +12,7 @@ export function EditUserPage() {
   const { data: user, isLoading, error } = useUser(id!);
   const updateUser = useUpdateUser(id!);
 
-  const handleSubmit = (data: CreateUserInput) => {
+  const handleSubmit = (data: UpdateUserInput) => {
     updateUser.mutate(data, {
       onSuccess: (updated) => {
         toast.success(`${updated.firstName} ${updated.lastName} updated!`);

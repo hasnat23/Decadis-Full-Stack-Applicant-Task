@@ -167,7 +167,7 @@ Visit **http://localhost:5173** in your browser.
 # All unit/integration tests
 npm test
 
-# API tests only (22 tests)
+# API tests only (28 tests)
 npm run test:api
 
 # Web component tests only (6 tests)
@@ -179,9 +179,9 @@ npm run test:e2e
 
 ### Test Coverage
 
-- **Backend**: Full endpoint coverage (CRUD + action authorization + validation + errors)
-- **Frontend**: App routing, form rendering, form validation, form submission
-- **E2E**: Complete CRUD flow including create → view → execute action → edit → delete
+- **Backend (28 tests)**: Full endpoint coverage — CRUD, action authorization, validation errors, email normalization, edge cases
+- **Frontend (6 tests)**: App routing, form rendering, form validation, form submission
+- **E2E (1 test)**: Complete CRUD flow including create → view → execute action → edit → delete
 
 ---
 
@@ -219,7 +219,7 @@ DELETE /user/:id      → Delete a user (204 | 404)
 ### Action Execution
 
 ```
-POST /action → Execute an action (200 | 401 | 404)
+POST /action → Execute an action (200 | 403 | 404)
 ```
 
 **Request body:**
@@ -247,7 +247,7 @@ All errors follow this format:
 | Status | Meaning                        |
 | ------ | ------------------------------ |
 | 400    | Validation error               |
-| 401    | User not authorized for action |
+| 403    | User not authorized for action |
 | 404    | Resource not found             |
 | 409    | Conflict (duplicate email)     |
 | 500    | Internal server error          |
@@ -262,12 +262,14 @@ All errors follow this format:
 
 3. **Express 5**: Used the latest Express version. Some type quirks with `req.params` in v5 required explicit casting.
 
-4. **No authentication**: The task focuses on user management and action authorization, not user login/auth. Actions are checked against the user's allowed actions list.
+4. **No authentication**: The task focuses on user management and action authorization, not user login/auth. Actions are checked against the user’s allowed actions list. Unauthorized actions return **403 Forbidden** (not 401, since the user is identified by ID).
 
-5. **Monorepo with npm workspaces**: Simpler than Turborepo/Nx for a two-app project. No build caching needed at this scale.
+5. **Email normalization**: Emails are lowercased and trimmed on input to prevent case-sensitive duplicates (e.g., `John@Example.com` and `john@example.com` are treated as the same).
 
-6. **Tailwind CSS v3**: Stable and well-supported. v4 is available but v3 has better ecosystem support for PostCSS plugins.
+6. **Monorepo with npm workspaces**: Simpler than Turborepo/Nx for a two-app project. No build caching needed at this scale.
 
-7. **E2E tests use Playwright's webServer**: Both servers are auto-started and stopped by Playwright, no manual setup needed.
+7. **Tailwind CSS v3**: Stable and well-supported. v4 is available but v3 has better ecosystem support for PostCSS plugins.
 
-8. **Shared package consumed as TypeScript**: No build step for the shared package — both apps import directly from source. Works well with Vite and tsx.
+8. **E2E tests use Playwright’s webServer**: Both servers are auto-started and stopped by Playwright, no manual setup needed.
+
+9. **Shared package consumed as TypeScript**: No build step for the shared package — both apps import directly from source. Works well with Vite and tsx.

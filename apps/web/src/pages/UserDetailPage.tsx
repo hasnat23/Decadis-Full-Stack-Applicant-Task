@@ -68,9 +68,10 @@ export function UserDetailPage() {
           </Link>
           <button
             onClick={handleDelete}
-            className="rounded-lg bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200"
+            disabled={deleteUser.isPending}
+            className="rounded-lg bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 disabled:opacity-50"
           >
-            Delete
+            {deleteUser.isPending ? 'Deleting…' : 'Delete'}
           </button>
         </div>
       </div>

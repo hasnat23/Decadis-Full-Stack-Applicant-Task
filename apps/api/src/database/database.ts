@@ -1,13 +1,14 @@
 import Database from 'better-sqlite3';
 import path from 'node:path';
 import fs from 'node:fs';
+import { env } from '../config.js';
 
 let db: Database.Database | null = null;
 
-export function getDatabase(dbPath?: string): Database.Database {
+export function getDatabase(): Database.Database {
   if (db) return db;
 
-  const resolvedPath = dbPath || path.join(process.cwd(), 'data', 'database.db');
+  const resolvedPath = env.DATABASE_PATH;
   const dir = path.dirname(resolvedPath);
 
   // Ensure the data directory exists

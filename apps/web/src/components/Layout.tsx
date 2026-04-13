@@ -11,7 +11,7 @@ export function Layout() {
             👥 User Management
           </Link>
           <nav className="flex gap-4">
-            <NavLink to="/users" current={location.pathname}>
+            <NavLink to="/users" current={location.pathname} exact>
               All Users
             </NavLink>
             <NavLink to="/users/new" current={location.pathname}>
@@ -31,12 +31,14 @@ function NavLink({
   to,
   current,
   children,
+  exact,
 }: {
   to: string;
   current: string;
   children: React.ReactNode;
+  exact?: boolean;
 }) {
-  const isActive = current === to;
+  const isActive = exact ? current === to : current.startsWith(to);
   return (
     <Link
       to={to}

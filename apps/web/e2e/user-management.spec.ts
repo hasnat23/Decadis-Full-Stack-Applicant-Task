@@ -73,7 +73,7 @@ test.describe('User Management E2E', () => {
     const row = page.locator('tr', { hasText: 'Alice Updated' }).first();
     await row.getByText('Delete').click();
 
-    // User should be gone (wait for table to update)
-    await page.waitForTimeout(500);
+    // Verify the user is gone from the table
+    await expect(page.locator('tr', { hasText: 'Alice Updated' })).toHaveCount(0);
   });
 });

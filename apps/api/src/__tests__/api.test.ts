@@ -219,7 +219,7 @@ describe('POST /action', () => {
     const res = await request(app)
       .post('/action')
       .send({ userId: created.body.id, action: 'delete-item' });
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(403);
     expect(res.body.error).toContain('not allowed');
   });
 
@@ -243,5 +243,74 @@ describe('POST /action', () => {
       .post('/action')
       .send({ userId: 'not-a-uuid', action: 'create-item' });
     expect(res.status).toBe(400);
+  });
+});
+
+describe('Email normalization', () => {
+  it('should normalize email to lowercase on create', async () => {
+    const res = await request(app)
+      .post('/user')
+      .send({ ...validUser, email: 'John@EXAMPLE.com' });
+    expect(res.status).toBe(201);
+    expect(res.body.email).toBe('john@example.com');
+  });
+
+  it('should detect duplicate emails case-insensitively', async () => {
+    await request(app).post('/user').send(validUser);
+    const res = await request(app)
+      .post('/user')
+      .send({ ...validUser, email: 'JOHN@EXAMPLE.COM' });
+    expect(res.status).toBe(409);
+  });
+
+  it('should trim whitespace from names', async () => {
+    const res = await request(app)
+      .post('/user')
+      .send({
+        ...validUser,
+        firstName: '  Alice  ',
+        lastName: '  Smith  ',
+        email: 'trim@test.com',
+      });
+    expect(res.status).toBe(201);
+    expect(res.body.firstName).toBe('Alice');
+    expect(res.body.lastName).toBe('Smith');
+  });
+});
+
+describe('PUT /user/:id — edge cases', () => {
+  it('should update updatedAt timestamp', async () => {
+    const created = await request(app).post('/user').send(validUser);
+    const original = created.body.updatedAt;
+
+    // Small delay to ensure different timestamp
+    await new Promise((r) => setTimeout(r, 10));
+
+    const res = await request(app).put(`/user/${created.body.id}`).send({ firstName: 'Changed' });
+    expect(res.status).toBe(200);
+    expect(res.body.updatedAt).not.toBe(original);
+  });
+
+  it('should allow updating email to the same current email', async () => {
+    const created = await request(app).post('/user').send(validUser);
+    const res = await request(app)
+      .put(`/user/${created.body.id}`)
+      .send({ email: 'john@example.com' });
+    expect(res.status).toBe(200);
+  });
+});
+
+describe('GET /user — ordering', () => {
+  it('should return users in descending creation order', async () => {
+    await request(app).post('/user').send(validUser);
+    await new Promise((r) => setTimeout(r, 10));
+    await request(app)
+      .post('/user')
+      .send({ ...validUser, email: 'second@example.com', firstName: 'Second' });
+
+    const res = await request(app).get('/user');
+    expect(res.status).toBe(200);
+    expect(res.body[0].firstName).toBe('Second');
+    expect(res.body[1].firstName).toBe('John');
   });
 });

@@ -7,9 +7,9 @@ export type Action = (typeof AVAILABLE_ACTIONS)[number];
 
 /** Schema for creating a new user */
 export const createUserSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(100),
-  lastName: z.string().min(1, 'Last name is required').max(100),
-  email: z.string().email('Invalid email address'),
+  firstName: z.string().min(1, 'First name is required').max(100).trim(),
+  lastName: z.string().min(1, 'Last name is required').max(100).trim(),
+  email: z.string().email('Invalid email address').toLowerCase().trim(),
   actions: z
     .array(z.enum(AVAILABLE_ACTIONS))
     .default([])
@@ -20,9 +20,9 @@ export type CreateUserInput = z.infer<typeof createUserSchema>;
 
 /** Schema for updating a user (all fields optional) */
 export const updateUserSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(100).optional(),
-  lastName: z.string().min(1, 'Last name is required').max(100).optional(),
-  email: z.string().email('Invalid email address').optional(),
+  firstName: z.string().min(1, 'First name is required').max(100).trim().optional(),
+  lastName: z.string().min(1, 'Last name is required').max(100).trim().optional(),
+  email: z.string().email('Invalid email address').toLowerCase().trim().optional(),
   actions: z
     .array(z.enum(AVAILABLE_ACTIONS))
     .optional()

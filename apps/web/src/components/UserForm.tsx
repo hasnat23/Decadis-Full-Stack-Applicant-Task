@@ -1,21 +1,21 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { AVAILABLE_ACTIONS, type CreateUserInput } from '@app/shared';
+import { AVAILABLE_ACTIONS } from '@app/shared';
 
 /** Form-specific schema: all fields required (no .default() transform issues) */
 const userFormSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(100),
-  lastName: z.string().min(1, 'Last name is required').max(100),
-  email: z.string().email('Invalid email address'),
+  firstName: z.string().min(1, 'First name is required').max(100).trim(),
+  lastName: z.string().min(1, 'Last name is required').max(100).trim(),
+  email: z.string().email('Invalid email address').toLowerCase().trim(),
   actions: z.array(z.enum(AVAILABLE_ACTIONS)),
 });
 
 type UserFormValues = z.infer<typeof userFormSchema>;
 
 interface UserFormProps {
-  defaultValues?: Partial<CreateUserInput>;
-  onSubmit: (data: CreateUserInput) => void;
+  defaultValues?: Partial<UserFormValues>;
+  onSubmit: (data: UserFormValues) => void;
   isSubmitting: boolean;
   submitLabel: string;
 }

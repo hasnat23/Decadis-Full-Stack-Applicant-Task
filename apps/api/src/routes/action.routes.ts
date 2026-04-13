@@ -9,9 +9,7 @@ import { UserRepository } from '../repositories/user.repository.js';
 export const actionRouter = Router();
 
 function getService(): UserService {
-  const db = getDatabase();
-  const repo = new UserRepository(db);
-  return new UserService(repo);
+  return new UserService(new UserRepository(getDatabase()));
 }
 
 // POST /action — execute an action for a user
