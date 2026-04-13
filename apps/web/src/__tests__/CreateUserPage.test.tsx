@@ -95,7 +95,7 @@ describe('CreateUserPage', () => {
 
     await waitFor(() => {
       expect(mockRequest).toHaveBeenCalledWith(
-        '/user',
+        '/users',
         expect.objectContaining({
           method: 'POST',
         }),

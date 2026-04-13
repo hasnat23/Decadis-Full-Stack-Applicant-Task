@@ -5,10 +5,10 @@ const API_URL = 'http://localhost:3001';
 test.describe('User Management E2E', () => {
   test('full CRUD flow: create, view, edit, run action, delete', async ({ page, request }) => {
     // Clean up any leftover test users from prior runs
-    const allUsers = await (await request.get(`${API_URL}/user`)).json();
+    const allUsers = await (await request.get(`${API_URL}/users`)).json();
     for (const u of allUsers) {
       if (u.email?.includes('e2e-')) {
-        await request.delete(`${API_URL}/user/${u.id}`);
+        await request.delete(`${API_URL}/users/${u.id}`);
       }
     }
 

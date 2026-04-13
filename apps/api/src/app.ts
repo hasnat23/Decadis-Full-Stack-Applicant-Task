@@ -17,8 +17,13 @@ app.get('/health', (_req, res) => {
 });
 
 // Routes
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/action', actionRouter);
+
+// 404 catch-all for undefined routes
+app.use((_req, res) => {
+  res.status(404).json({ error: 'Not found' });
+});
 
 // Global error handler
 app.use(errorHandler);

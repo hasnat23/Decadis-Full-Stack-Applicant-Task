@@ -13,14 +13,14 @@ const USERS_KEY = ['users'] as const;
 export function useUsers() {
   return useQuery({
     queryKey: USERS_KEY,
-    queryFn: () => api.request<User[]>('/user'),
+    queryFn: () => api.request<User[]>('/users'),
   });
 }
 
 export function useUser(id: string) {
   return useQuery({
     queryKey: [...USERS_KEY, id],
-    queryFn: () => api.request<User>(`/user/${id}`),
+    queryFn: () => api.request<User>(`/users/${id}`),
     enabled: !!id,
   });
 }
@@ -29,7 +29,7 @@ export function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: CreateUserInput) =>
-      api.request<User>('/user', {
+      api.request<User>('/users', {
         method: 'POST',
         body: JSON.stringify(data),
       }),
@@ -43,7 +43,7 @@ export function useUpdateUser(id: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: UpdateUserInput) =>
-      api.request<User>(`/user/${id}`, {
+      api.request<User>(`/users/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
       }),
@@ -56,7 +56,7 @@ export function useUpdateUser(id: string) {
 export function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => api.request<void>(`/user/${id}`, { method: 'DELETE' }),
+    mutationFn: (id: string) => api.request<void>(`/users/${id}`, { method: 'DELETE' }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: USERS_KEY });
     },

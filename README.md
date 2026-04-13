@@ -198,11 +198,11 @@ GET /health → { status: "ok", timestamp: "..." }
 ### User CRUD
 
 ```
-POST   /user          → Create a user (201)
-GET    /user          → List all users (200)
-GET    /user/:id      → Get single user (200 | 404)
-PUT    /user/:id      → Update a user (200 | 404 | 409)
-DELETE /user/:id      → Delete a user (204 | 404)
+POST   /users          → Create a user (201)
+GET    /users          → List all users (200)
+GET    /users/:id      → Get single user (200 | 404)
+PUT    /users/:id      → Update a user (200 | 404 | 409)
+DELETE /users/:id      → Delete a user (204 | 404)
 ```
 
 **Create/Update body:**

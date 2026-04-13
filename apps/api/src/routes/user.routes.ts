@@ -1,16 +1,10 @@
 import type { Request, Response, NextFunction } from 'express';
 import { createUserSchema, updateUserSchema } from '@app/shared';
-import { UserService } from '../services/user.service.js';
+import { createUserService } from '../services/create-user-service.js';
 import { validate } from '../middleware/validate.js';
 import { Router } from 'express';
-import { getDatabase } from '../database/database.js';
-import { UserRepository } from '../repositories/user.repository.js';
 
 export const userRouter = Router();
-
-function getService(): UserService {
-  return new UserService(new UserRepository(getDatabase()));
-}
 
 // POST /user — create a user
 userRouter.post(
@@ -18,7 +12,7 @@ userRouter.post(
   validate(createUserSchema),
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      const service = getService();
+      const service = createUserService();
       const user = service.createUser(req.body);
       res.status(201).json(user);
     } catch (err) {
@@ -30,7 +24,7 @@ userRouter.post(
 // GET /user — fetch all users
 userRouter.get('/', (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const service = getService();
+    const service = createUserService();
     const users = service.getAllUsers();
     res.json(users);
   } catch (err) {
@@ -41,7 +35,7 @@ userRouter.get('/', (_req: Request, res: Response, next: NextFunction) => {
 // GET /user/:id — fetch one user
 userRouter.get('/:id', (req: Request, res: Response, next: NextFunction) => {
   try {
-    const service = getService();
+    const service = createUserService();
     const id = req.params.id as string;
     const user = service.getUserById(id);
     if (!user) {
@@ -60,7 +54,7 @@ userRouter.put(
   validate(updateUserSchema),
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      const service = getService();
+      const service = createUserService();
       const id = req.params.id as string;
       const user = service.updateUser(id, req.body);
       res.json(user);
@@ -73,7 +67,7 @@ userRouter.put(
 // DELETE /user/:id — delete a user
 userRouter.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
   try {
-    const service = getService();
+    const service = createUserService();
     const id = req.params.id as string;
     service.deleteUser(id);
     res.status(204).send();

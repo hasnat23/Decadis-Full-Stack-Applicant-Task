@@ -100,8 +100,4 @@ export class UserRepository {
     const result = this.db.prepare('DELETE FROM users WHERE id = ?').run(id);
     return result.changes > 0;
   }
-
-  deleteAll(): void {
-    this.db.prepare('DELETE FROM users').run();
-  }
 }
