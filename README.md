@@ -4,6 +4,45 @@ A full-stack **User Management** application built as a production-quality monor
 
 ---
 
+## 📸 Screenshots
+
+### Users List
+View all users in a responsive table (desktop) or card layout (mobile), with avatar initials, permission badges, and inline actions.
+
+![Users List](docs/screenshots/01-users-list.png)
+
+### Empty State
+A friendly prompt when no users have been created yet.
+
+![Empty State](docs/screenshots/02-empty-state.png)
+
+### Create User
+Form with validated inputs, email icon, and checkbox cards for assigning action permissions.
+
+![Create User](docs/screenshots/03-create-user.png)
+
+### User Detail
+Profile header with avatar, user info card, and the action execution panel side by side.
+
+![User Detail](docs/screenshots/04-user-detail.png)
+
+### Execute Action — Allowed
+When a user has permission, the action succeeds with a green confirmation.
+
+![Action Allowed](docs/screenshots/05-action-allowed.png)
+
+### Execute Action — Denied
+When a user lacks permission, the action is denied with a clear error message.
+
+![Action Denied](docs/screenshots/06-action-denied.png)
+
+### Edit User
+Pre-filled form with breadcrumb navigation back to the user detail page.
+
+![Edit User](docs/screenshots/07-edit-user.png)
+
+---
+
 ## 🏗️ Stack
 
 | Layer             | Technology                                          |
